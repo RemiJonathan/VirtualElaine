@@ -4,5 +4,7 @@
 
     <item
         android:id="@+id/create_menu_item"
-        android:title="@string/create_task" />
+        android:icon="@drawable/ic_create_white_24dp"
+        android:title="@string/create_task"
+        app:showAsAction="ifRoom" />
 </menu>
