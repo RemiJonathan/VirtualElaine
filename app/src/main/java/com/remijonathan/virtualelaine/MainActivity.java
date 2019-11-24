@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Create new Task", Toast.LENGTH_LONG).show();
                 goToCreateNewTaskActivity();
                 return true;
+            case R.id.create_label_menu_item:
+                goToCreateLabelActivity();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -43,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
     //Switching Activities
     public void goToCreateNewTaskActivity(){
         Intent intent = new Intent(this, CreateNewTaskActivity.class);
+        startActivity(intent);
+    }
+
+    //Switching Activities
+    public void goToCreateLabelActivity(){
+        Intent intent = new Intent(this, CreateLabelActivity.class);
         startActivity(intent);
     }
 }
