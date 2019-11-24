@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateNewTaskActivity">
-
+    tools:context=".CreateLabelActivity">
     <EditText
-        android:id="@+id/title_edit_text"
+        android:id="@+id/label_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints=""
@@ -26,25 +24,18 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_edit_text">
+        app:layout_constraintTop_toBottomOf="@+id/label_name_edit_text">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkable="false"
-            android:text="@string/set_date"
+            android:text="@string/select_color"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:chipIcon="@drawable/ic_date_range_24dp" />
+            app:chipIcon="@drawable/ic_color_lens_24dp" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checkable="false"
-            android:text="@string/set_label"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:chipIcon="@drawable/ic_label_outline_24dp" />
+
     </com.google.android.material.chip.ChipGroup>
 
     <EditText
@@ -54,7 +45,7 @@
         android:autofillHints=""
         android:ems="10"
         android:gravity="start|top"
-        android:hint="@string/comment"
+        android:hint="@string/description"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

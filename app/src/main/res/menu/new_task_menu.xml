@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_create_white_24dp"
         android:title="@string/create_task"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/create_label_menu_item"
+        android:title="@string/create_label"
+        app:showAsAction="never"
+        />
 </menu>

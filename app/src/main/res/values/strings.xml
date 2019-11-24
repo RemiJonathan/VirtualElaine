@@ -7,4 +7,8 @@
     <string name="set_label">Set Label</string>
     <string name="comment">Comment...</string>
     <string name="save">Save</string>
+    <string name="create_label">Create Label</string>
+    <string name="app_info">App Info</string>
+    <string name="select_color">Select Colour</string>
+    <string name="description">Description...</string>
 </resources>
