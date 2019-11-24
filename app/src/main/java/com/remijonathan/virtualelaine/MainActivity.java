@@ -3,6 +3,8 @@ package com.remijonathan.virtualelaine;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.create_menu_item:
                 Toast.makeText(this, "Create new Task", Toast.LENGTH_LONG).show();
+                goToCreateNewTaskActivity();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void goToCreateNewTaskActivity(){
-
+        Intent intent = new Intent(this, CreateNewTaskActivity.class);
+        startActivity(intent);
     }
 }

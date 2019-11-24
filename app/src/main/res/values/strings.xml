@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">VirtualElaine</string>
     <string name="create_task">Create Task</string>
+    <string name="due_date">Due Date</string>
+    <string name="title">Title</string>
+    <string name="set_date">Set Date</string>
+    <string name="set_label">Set Label</string>
+    <string name="comment">Comment...</string>
+    <string name="save">Save</string>
 </resources>
