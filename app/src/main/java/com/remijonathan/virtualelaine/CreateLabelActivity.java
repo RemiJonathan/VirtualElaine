@@ -2,15 +2,19 @@ package com.remijonathan.virtualelaine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
+import com.remijonathan.virtualelaine.data.DatabaseHelper;
 
 import java.util.ArrayList;
 
@@ -24,12 +28,13 @@ public class CreateLabelActivity extends AppCompatActivity {
 
     private int selectedColor = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_label);
 
-        titleEditText = findViewById(R.id.title_edit_text);
+        titleEditText = findViewById(R.id.label_name_edit_text);
         chipColor = findViewById(R.id.chip_color);
         descriptionEditText = findViewById(R.id.description_edit_text);
         saveButton = findViewById(R.id.save_button);
@@ -41,6 +46,20 @@ public class CreateLabelActivity extends AppCompatActivity {
                 openColorPicker();
             }
         });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveLabel();
+            }
+        });
+    }
+
+    public void saveLabel(){
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        databaseHelper.createLabel(titleEditText.getText().toString(),selectedColor);
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
     public void openColorPicker(){
