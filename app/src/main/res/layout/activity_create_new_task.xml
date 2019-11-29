@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_edit_text">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_color"
+            android:id="@+id/chip_dateTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkable="false"
