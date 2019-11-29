@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.remijonathan.virtualelaine.model.Label;
+import com.remijonathan.virtualelaine.model.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -28,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_2 + " VARCHAR(70), " + COL_3 + " INTEGER, " + COL_4 + " TEXT DEFAULT NULL); ");
-        db.execSQL("CREATE TABLE TASK ( TASKID INTEGER PRIMARY KEY AUTOINCREMENT, TASKTITLE VARCHAR(70), TASKTITLE TEXT DEFAULT NULL, TASKLABEL TEXT DEFAULT NULL, TASKDESCRIPTION TEXT DEFAULT NULL, ISACTIVE BOOLEAN DEFAULT 1);");
+        db.execSQL("CREATE TABLE TASK ( TASKID INTEGER PRIMARY KEY AUTOINCREMENT, TASKTITLE TEXT DEFAULT NULL, TASKLABEL TEXT DEFAULT NULL, TASKDESCRIPTION TEXT DEFAULT NULL, ISACTIVE BOOLEAN DEFAULT 1);");
     }
 
     @Override
@@ -43,7 +45,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(String.format("INSERT INTO %s  (%s, %s, %s) VALUES ('%s', %d, %s);", TABLE_NAME, COL_2, COL_3, COL_4, title, color, description));
     }
-/*TODO: Take Care of all this;
 
     public void putTask(String taskTitle, @Nullable String taskDueDate, @Nullable String taskLabel, @Nullable String taskDescription){
          SQLiteDatabase db = this.getWritableDatabase();
@@ -75,13 +76,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '"+description+"' WHERE TASKID = "+id+");");
     }
 
-    public String[][] getTasks(){
+    public List<Task> getTasks(){
         SQLiteDatabase db = this.getReadableDatabase();
+        List<Task> tasks = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM TASK;", null);
 
+        if(cursor.moveToFirst()){
+            do{
+                Task task = new Task(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3),Boolean.parseBoolean(cursor.getString(4)));
 
+                tasks.add(task);
+            }while (cursor.moveToNext());
+        }
 
         cursor.close();
-    }*/
+        return tasks;
+    }
+
+    public Task getTask(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM TASK WHERE TASKID = ?",new String[]{String.valueOf(id)});
+
+        if(cursor.moveToFirst()){
+            Task task = new Task(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3),Boolean.parseBoolean(cursor.getString(4)));
+            return task;
+        }else {
+            return null;
+        }
+    }
+
+    public void deleteTask(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(String.format("UPDATE TASK SET ISACTIVE = 0 WHERE TASKID = %d", id));
+    }
 }
