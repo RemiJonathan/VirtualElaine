@@ -58,10 +58,12 @@ public class CreateLabelActivity extends AppCompatActivity {
     public void saveLabel() {
         if (!isEmpty(titleEditText)) {
             DatabaseHelper databaseHelper = new DatabaseHelper(this);
-            databaseHelper.createLabel(titleEditText.getText().toString(), selectedColor);
+            databaseHelper.createLabel(titleEditText.getText().toString(), selectedColor, descriptionEditText.getText().toString());
+            Toast.makeText(this, "Label Created", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        } else Toast.makeText(this, "Please enter a Title for your label", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "Please enter a Title for your label", Toast.LENGTH_SHORT).show();
 
     }
 
