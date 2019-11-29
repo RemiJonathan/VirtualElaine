@@ -54,8 +54,13 @@ public class CreateNewTaskActivity extends AppCompatActivity implements TimePick
         dueDateAndTime.set(Calendar.MONTH, month);
         dueDateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        String dueDate = dueDateAndTime.get(Calendar.DAY_OF_MONTH)+"/"+dueDateAndTime.get(Calendar.MONTH)+"/"+dueDateAndTime.get(Calendar.YEAR)+" "+dueDateAndTime.get(Calendar.HOUR_OF_DAY)+":"+dueDateAndTime.get(Calendar.MINUTE);
+        String dueDate = String.format("%d/%d/%d %d:%02d", dueDateAndTime.get(Calendar.DAY_OF_MONTH), dueDateAndTime.get(Calendar.MONTH), dueDateAndTime.get(Calendar.YEAR), dueDateAndTime.get(Calendar.HOUR_OF_DAY), dueDateAndTime.get(Calendar.MINUTE));
 
-        dateTimeSelect.setText(dueDate);
+        long timeBetween = ((dueDateAndTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis())/86400000)+1;
+
+        String timeToDate;
+        if (timeBetween>1) timeToDate = timeBetween + " days"; else timeToDate = timeBetween + " day";
+
+        dateTimeSelect.setText(String.format("%s (%s)", dueDate, timeToDate));
     }
 }

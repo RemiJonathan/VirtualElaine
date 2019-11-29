@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_by_label"
+        android:icon="@drawable/ic_label_outline_24dp"
+        android:title="@string/by_label"/>
+    <item
+        android:id="@+id/nav_by_date"
+        android:icon="@drawable/ic_date_range_24dp"
+        android:title="@string/by_date"/>
+    <item
+        android:id="@+id/nav_by_title"
+        android:icon="@drawable/ic_title_black_24dp"
+        android:title="@string/by_title"/>
+</menu>
