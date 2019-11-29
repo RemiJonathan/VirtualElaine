@@ -18,7 +18,7 @@ import com.remijonathan.virtualelaine.model.Label;
 
 import java.util.List;
 
-public class CreateNewTaskActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+public class CreateNewTaskActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private EditText titleEditText;
     private Chip dateTimeSelect;
     private Calendar dueDateAndTime = Calendar.getInstance();
@@ -56,10 +56,11 @@ public class CreateNewTaskActivity extends AppCompatActivity implements TimePick
 
         String dueDate = String.format("%d/%d/%d %d:%02d", dueDateAndTime.get(Calendar.DAY_OF_MONTH), dueDateAndTime.get(Calendar.MONTH), dueDateAndTime.get(Calendar.YEAR), dueDateAndTime.get(Calendar.HOUR_OF_DAY), dueDateAndTime.get(Calendar.MINUTE));
 
-        long timeBetween = ((dueDateAndTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis())/86400000)+1;
+        long timeBetween = ((dueDateAndTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis()) / 86400000) + 1;
 
         String timeToDate;
-        if (timeBetween>1) timeToDate = timeBetween + " days"; else timeToDate = timeBetween + " day";
+        if (timeBetween > 1) timeToDate = timeBetween + " days";
+        else timeToDate = timeBetween + " day";
 
         dateTimeSelect.setText(String.format("%s (%s)", dueDate, timeToDate));
     }
