@@ -1,10 +1,15 @@
 package com.remijonathan.virtualelaine.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.remijonathan.virtualelaine.model.Label;
+
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "VirtualElaine.db";
@@ -23,22 +28,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_2 + " VARCHAR(70), " + COL_3 + " INTEGER, " + COL_4 + " TEXT DEFAULT NULL); ");
+        db.execSQL("CREATE TABLE TASK ( TASKID INTEGER PRIMARY KEY AUTOINCREMENT, TASKTITLE VARCHAR(70), TASKTITLE TEXT DEFAULT NULL, TASKLABEL TEXT DEFAULT NULL, TASKDESCRIPTION TEXT DEFAULT NULL, ISACTIVE BOOLEAN DEFAULT 1);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
+        db.execSQL("DROP TABLE IF EXISTS TASK");
         onCreate(db);
     }
 
-    public void createLabel(String title, int color) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("INSERT INTO " + TABLE_NAME + "  (" + COL_2 + ", " + COL_3 + ") VALUES ('" + title + "', " + color + ");");
-    }
-
-    public void createLabel(String title, int color, String description) {
+    public void createLabel(String title, int color, @Nullable String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("INSERT INTO " + TABLE_NAME + "  (" + COL_2 + ", " + COL_3 + ", " + COL_4 + ") VALUES ('" + title + "', " + color + ", " + description + ");");
+        db.execSQL(String.format("INSERT INTO %s  (%s, %s, %s) VALUES ('%s', %d, %s);", TABLE_NAME, COL_2, COL_3, COL_4, title, color, description));
     }
+/*TODO: Take Care of all this;
+
+    public void putTask(String taskTitle, @Nullable String taskDueDate, @Nullable String taskLabel, @Nullable String taskDescription){
+         SQLiteDatabase db = this.getWritableDatabase();
+
+         db.execSQL(String.format("INSERT INTO TASK (TASKTITLE, TASKDUEDATE, TASKLABEL, TASKDESCRIPTION) VALUES (%s, %s, %s, %s)", taskTitle, taskDueDate, taskLabel, taskDescription));
+    }
+
+    public void updateTaskTitle(int id, String title){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("UPDATE TASK SET TASKTITLE = '"+title+"' WHERE TASKID = "+id+");");
+    }
+
+    public void updateTaskDueDate(int id, String dueDate){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("UPDATE TASK SET TASKDueDate = '"+dueDate+"' WHERE TASKID = "+id+");");
+    }
+
+    public void updateTaskLabel(int id, String label){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("UPDATE TASK SET TASKLABEL = '"+label+"' WHERE TASKID = "+id+");");
+    }
+
+    public void updateTaskDescription(int id, String description){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '"+description+"' WHERE TASKID = "+id+");");
+    }
+
+    public String[][] getTasks(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM TASK;", null);
+
+
+
+        cursor.close();
+    }*/
 }
