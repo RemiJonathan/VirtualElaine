@@ -38,3 +38,4 @@ The part that will be most challenging will be the searching of tasks and also p
 ### Unrealistic Aspects
 
 In theory, an application such as this one one synchronizing with an online resource would be able to handle multiple users on the database. However, since I will not be creating a login screen for the application any person who downloads the application will have access to the same tasks that&#39;s making this application only useable by a single user. If I had more time I would be able to create the login screen and have multiple users have their own tasks simultaneously.
+
