@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.remijonathan.virtualelaine.model.Label;
@@ -43,11 +44,18 @@ public class CreateNewTaskActivity extends AppCompatActivity implements TimePick
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         dueDateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
         dueDateAndTime.set(Calendar.MINUTE, minute);
-
+        DialogFragment datePicker = new SelectDateFragment();
+        datePicker.show(getSupportFragmentManager(), "date picker");
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        dueDateAndTime.set(Calendar.YEAR, year);
+        dueDateAndTime.set(Calendar.MONTH, month);
+        dueDateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+        String dueDate = dueDateAndTime.get(Calendar.DAY_OF_MONTH)+"/"+dueDateAndTime.get(Calendar.MONTH)+"/"+dueDateAndTime.get(Calendar.YEAR)+" "+dueDateAndTime.get(Calendar.HOUR_OF_DAY)+":"+dueDateAndTime.get(Calendar.MINUTE);
+
+        dateTimeSelect.setText(dueDate);
     }
 }
