@@ -42,7 +42,7 @@ public class CreateLabelActivity extends AppCompatActivity {
         chipColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CreateLabelActivity.this,"Open Color Picker", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateLabelActivity.this, "Open Color Picker", Toast.LENGTH_LONG).show();
                 openColorPicker();
             }
         });
@@ -55,14 +55,24 @@ public class CreateLabelActivity extends AppCompatActivity {
         });
     }
 
-    public void saveLabel(){
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        databaseHelper.createLabel(titleEditText.getText().toString(),selectedColor);
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+    public void saveLabel() {
+        if (!isEmpty(titleEditText)) {
+            DatabaseHelper databaseHelper = new DatabaseHelper(this);
+            databaseHelper.createLabel(titleEditText.getText().toString(), selectedColor);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else Toast.makeText(this, "Please enter a Title for your label", Toast.LENGTH_SHORT).show();
+
     }
 
-    public void openColorPicker(){
+    private boolean isEmpty(EditText etText) {
+        if (etText.getText().toString().trim().length() > 0)
+            return false;
+
+        return true;
+    }
+
+    public void openColorPicker() {
         final ColorPicker colorPicker = new ColorPicker(this);
 
         //Building Color Palette
@@ -82,19 +92,20 @@ public class CreateLabelActivity extends AppCompatActivity {
                 .setColumns(3)
                 .setRoundColorButton(true)
                 .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-            @Override
-            public void onChooseColor(int position, int color) {
-                Toast.makeText(CreateLabelActivity.this, String.format("Color %d selected", color), Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onChooseColor(int position, int color) {
+                        Toast.makeText(CreateLabelActivity.this, String.format("Color %d selected", color), Toast.LENGTH_LONG).show();
 
-                saveButton.setBackgroundColor(color);
-                selectedColor = color;
-                chipColor.setTextColor(color);
-            }
+                        saveButton.setBackgroundColor(color);
+                        selectedColor = color;
+                        chipColor.setTextColor(color);
+                    }
 
-            @Override
-            public void onCancel() {
-                Toast.makeText(CreateLabelActivity.this, "Selectrion canceled", Toast.LENGTH_LONG).show();
-            }
-        }).show();
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(CreateLabelActivity.this, "Selectrion canceled", Toast.LENGTH_LONG).show();
+                    }
+                }).show();
     }
 }
+
