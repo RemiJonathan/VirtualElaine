@@ -14,6 +14,8 @@
     <string name="by_label">By Label</string>
     <string name="by_date">By Date</string>
     <string name="by_title">By Title</string>
+    <string name="example_task">Example Task Title</string>
+    <string name="example_task_description">Example Task Description</string>
 
 
 </resources>
