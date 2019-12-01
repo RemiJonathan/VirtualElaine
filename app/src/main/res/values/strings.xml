@@ -16,6 +16,9 @@
     <string name="by_title">By Title</string>
     <string name="example_task">Example Task Title</string>
     <string name="example_task_description">Example Task Description</string>
+    <string name="example_label">Example Label</string>
+    <string name="example_label_description">Example Label Description</string>
+    <string name="sample">Sample</string>
 
 
 </resources>
