@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import com.remijonathan.virtualelaine.model.Label;
 import com.remijonathan.virtualelaine.model.Task;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,25 +68,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateTaskTitle(int id, String title) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKTITLE = '" + title + "' WHERE TASKID = " + id + ");");
+        db.execSQL("UPDATE TASK SET TASKTITLE = '" + title + "' WHERE TASKID = " + id + ";");
     }
 
     public void updateTaskDueDate(int id, String dueDate) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKDueDate = '" + dueDate + "' WHERE TASKID = " + id + ");");
+        db.execSQL("UPDATE TASK SET TASKDueDate = '" + dueDate + "' WHERE TASKID = " + id + ";");
     }
 
     public void updateTaskLabel(int id, String label) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKLABEL = '" + label + "' WHERE TASKID = " + id + ");");
+        db.execSQL("UPDATE TASK SET TASKLABEL = '" + label + "' WHERE TASKID = " + id + ";");
     }
 
     public void updateTaskDescription(int id, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '" + description + "' WHERE TASKID = " + id + ");");
+        db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '" + description + "' WHERE TASKID = " + id + ";");
     }
 
     public List<Task> getTasks(){

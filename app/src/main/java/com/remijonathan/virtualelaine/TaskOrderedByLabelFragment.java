@@ -1,5 +1,6 @@
 package com.remijonathan.virtualelaine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class TaskOrderedByLabelFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_by_label, container, false);
+        final View view = inflater.inflate(R.layout.fragment_by_label, container, false);
 
         final DatabaseHelper db = new DatabaseHelper(view.getContext());
 
@@ -44,8 +45,9 @@ public class TaskOrderedByLabelFragment extends Fragment {
         adapter.setOnItemClickListener(new SelectTaskAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //Intent intent = new Intent();
-
+                Intent intent = new Intent(view.getContext(), EditTaskActivity.class);
+                intent.putExtra("task index", tasks.get(position).getId());
+                startActivity(intent);
             }
 
             @Override

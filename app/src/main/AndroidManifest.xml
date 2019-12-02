@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateLabelActivity"></activity>
+        <activity android:name=".EditTaskActivity"></activity>
+        <activity android:name=".CreateLabelActivity" />
         <activity android:name=".CreateNewTaskActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
