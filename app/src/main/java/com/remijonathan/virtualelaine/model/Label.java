@@ -1,10 +1,21 @@
 package com.remijonathan.virtualelaine.model;
 
+import com.remijonathan.virtualelaine.data.DatabaseHelper;
+
+import java.util.List;
+
 public class Label {
     private int id;
     private String title;
     private int color;
     private String description;
+
+    public Label(int id, String title, int color, String description) {
+        this.id = id;
+        this.title = title;
+        this.color = color;
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -37,4 +48,6 @@ public class Label {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }

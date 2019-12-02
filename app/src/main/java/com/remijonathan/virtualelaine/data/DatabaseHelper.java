@@ -46,68 +46,81 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(String.format("INSERT INTO %s  (%s, %s, %s) VALUES ('%s', %d, %s);", TABLE_NAME, COL_2, COL_3, COL_4, title, color, description));
     }
 
-    public void putTask(String taskTitle, @Nullable String taskDueDate, @Nullable String taskLabel, @Nullable String taskDescription){
-         SQLiteDatabase db = this.getWritableDatabase();
+    public List<Label> getLabels() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Label> labels = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM LABEL", null);
 
-         db.execSQL(String.format("INSERT INTO TASK (TASKTITLE, TASKDUEDATE, TASKLABEL, TASKDESCRIPTION) VALUES (%s, %s, %s, %s)", taskTitle, taskDueDate, taskLabel, taskDescription));
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(new Label(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3)));
+            } while (cursor.moveToNext());
+        }
+        return labels;
     }
 
-    public void updateTaskTitle(int id, String title){
+    public void putTask(String taskTitle, @Nullable String taskDueDate, @Nullable String taskLabel, @Nullable String taskDescription) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKTITLE = '"+title+"' WHERE TASKID = "+id+");");
+        db.execSQL(String.format("INSERT INTO TASK (TASKTITLE, TASKDUEDATE, TASKLABEL, TASKDESCRIPTION) VALUES (%s, %s, %s, %s)", taskTitle, taskDueDate, taskLabel, taskDescription));
     }
 
-    public void updateTaskDueDate(int id, String dueDate){
+    public void updateTaskTitle(int id, String title) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKDueDate = '"+dueDate+"' WHERE TASKID = "+id+");");
+        db.execSQL("UPDATE TASK SET TASKTITLE = '" + title + "' WHERE TASKID = " + id + ");");
     }
 
-    public void updateTaskLabel(int id, String label){
+    public void updateTaskDueDate(int id, String dueDate) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKLABEL = '"+label+"' WHERE TASKID = "+id+");");
+        db.execSQL("UPDATE TASK SET TASKDueDate = '" + dueDate + "' WHERE TASKID = " + id + ");");
     }
 
-    public void updateTaskDescription(int id, String description){
+    public void updateTaskLabel(int id, String label) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '"+description+"' WHERE TASKID = "+id+");");
+        db.execSQL("UPDATE TASK SET TASKLABEL = '" + label + "' WHERE TASKID = " + id + ");");
     }
 
-    public List<Task> getTasks(){
+    public void updateTaskDescription(int id, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '" + description + "' WHERE TASKID = " + id + ");");
+    }
+
+    public List<Task> getTasks() {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Task> tasks = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM TASK;", null);
 
-        if(cursor.moveToFirst()){
-            do{
-                Task task = new Task(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3),Boolean.parseBoolean(cursor.getString(4)));
+        if (cursor.moveToFirst()) {
+            do {
+                Task task = new Task(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Boolean.parseBoolean(cursor.getString(4)));
 
                 tasks.add(task);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
         return tasks;
     }
 
-    public Task getTask(int id){
+    public Task getTask(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM TASK WHERE TASKID = ?",new String[]{String.valueOf(id)});
+        Cursor cursor = db.rawQuery("SELECT * FROM TASK WHERE TASKID = ?", new String[]{String.valueOf(id)});
 
-        if(cursor.moveToFirst()){
-            Task task = new Task(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3),Boolean.parseBoolean(cursor.getString(4)));
+        if (cursor.moveToFirst()) {
+            Task task = new Task(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Boolean.parseBoolean(cursor.getString(4)));
             return task;
-        }else {
+        } else {
             return null;
         }
     }
 
-    public void deleteTask(int id){
+    public void deleteTask(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.execSQL(String.format("UPDATE TASK SET ISACTIVE = 0 WHERE TASKID = %d", id));
