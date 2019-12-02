@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.remijonathan.virtualelaine.model.Label;
 import com.remijonathan.virtualelaine.model.Task;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '" + description + "' WHERE TASKID = " + id + ");");
     }
 
-    public List<Task> getTasks() {
+    public List<Task> getTasks(){
         SQLiteDatabase db = this.getReadableDatabase();
         List<Task> tasks = new ArrayList<>();
 
@@ -97,7 +98,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Task task = new Task(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Boolean.parseBoolean(cursor.getString(4)));
+                Task task = new Task(Integer.parseInt(cursor.getString(0)),//id
+                        cursor.getString(1),//title
+                        cursor.getString(2),//duedate
+                        cursor.getString(3),//label
+                        cursor.getString(4),//description
+                        Boolean.parseBoolean(cursor.getString(5))//isActive
+                );
 
                 tasks.add(task);
             } while (cursor.moveToNext());
@@ -107,13 +114,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return tasks;
     }
 
-    public Task getTask(int id) {
+    public Task getTask(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM TASK WHERE TASKID = ?", new String[]{String.valueOf(id)});
 
         if (cursor.moveToFirst()) {
-            Task task = new Task(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Boolean.parseBoolean(cursor.getString(4)));
+            Task task = new Task(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4), Boolean.parseBoolean(cursor.getString(5)));
             return task;
         } else {
             return null;

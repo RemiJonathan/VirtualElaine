@@ -1,20 +1,37 @@
 package com.remijonathan.virtualelaine.model;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class Task {
-    int id;
-    String title;
-    String label;
-    String description;
-    boolean isActive;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
-    public Task(int id, String title, @Nullable String label, @Nullable String description, boolean isActive) {
+public class Task {
+    private int id;
+    private String title;
+    private String label;
+    private Calendar dueDate = Calendar.getInstance();
+    private String description;
+    private boolean isActive;
+
+    public Task(int id, String title, @Nullable String dueDate, @Nullable String label,  @Nullable String description, boolean isActive){
         this.id = id;
         this.title = title;
         this.label = label;
         this.description = description;
         this.isActive = isActive;
+
+
+        if (dueDate!=null) {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+                this.dueDate.setTime(simpleDateFormat.parse(dueDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public int getId() {
@@ -55,5 +72,13 @@ public class Task {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Calendar getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Calendar dueDate) {
+        this.dueDate = dueDate;
     }
 }

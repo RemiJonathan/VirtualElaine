@@ -19,6 +19,7 @@
     <string name="example_label">Example Label</string>
     <string name="example_label_description">Example Label Description</string>
     <string name="sample">Sample</string>
+    <string name="example_due_date">1/01/1970 0:00 (∞ days)</string>
 
 
 </resources>

@@ -33,7 +33,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements TimePick
     private Chip dateTimeSelect;
     private Calendar dueDateAndTime = Calendar.getInstance();
     Chip labelSelect;
-    private int selectedLabel = -1;
+    private int selectedLabel = 0;
     private EditText descriptionEditText;
     private Button saveButton;
     private String DateTimeDueJson = null;
@@ -93,9 +93,10 @@ public class CreateNewTaskActivity extends AppCompatActivity implements TimePick
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         dueDateAndTime.set(Calendar.YEAR, year);
         dueDateAndTime.set(Calendar.MONTH, month);
+        Toast.makeText(this, ""+month,Toast.LENGTH_LONG).show();
         dueDateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        String dueDate = String.format("%d/%d/%d %d:%02d", dueDateAndTime.get(Calendar.DAY_OF_MONTH), dueDateAndTime.get(Calendar.MONTH), dueDateAndTime.get(Calendar.YEAR), dueDateAndTime.get(Calendar.HOUR_OF_DAY), dueDateAndTime.get(Calendar.MINUTE));
+        String dueDate = String.format("%s/%s/%d %d:%02d", ""+dueDateAndTime.get(Calendar.DAY_OF_MONTH), ""+(dueDateAndTime.get(Calendar.MONTH)+1), dueDateAndTime.get(Calendar.YEAR), dueDateAndTime.get(Calendar.HOUR_OF_DAY), dueDateAndTime.get(Calendar.MINUTE));
 
         long timeBetween = ((dueDateAndTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis()) / 86400000) + 1;
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp" android:layout_marginBottom="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,13 +27,24 @@
             android:text="@string/example_task_description"
             android:textSize="15sp" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/labels_chip_group"
+        <TextView
+            android:id="@+id/task_due_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/task_description_text_view"
+            android:layout_marginStart="8dp"
+            android:text="@string/example_due_date"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/task_label_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/detail_arrow_image_view"
-            android:layout_toEndOf="@id/task_description_text_view" />
+            android:layout_toEndOf="@id/task_description_text_view"
+            android:gravity="center"
+            android:textAlignment="center" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/detail_arrow_image_view"
