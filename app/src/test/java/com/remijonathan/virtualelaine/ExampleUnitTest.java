@@ -2,6 +2,10 @@ package com.remijonathan.virtualelaine;
 
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import static org.junit.Assert.*;
 
 /**
@@ -13,5 +17,16 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+    }
+
+
+    @Test
+    public void convertingDateIsGood(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD/MM/YYYY HH24:MI", Locale.CANADA);
+        try {
+            System.out.println(simpleDateFormat.parse("1/01/1970 00:00"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

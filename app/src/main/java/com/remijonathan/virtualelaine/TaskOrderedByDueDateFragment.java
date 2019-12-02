@@ -1,5 +1,6 @@
 package com.remijonathan.virtualelaine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ public class TaskOrderedByDueDateFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_by_due_date, container, false);
+        final View view = inflater.inflate(R.layout.fragment_by_due_date, container, false);
 
         final DatabaseHelper db = new DatabaseHelper(view.getContext());
 
@@ -40,7 +41,7 @@ public class TaskOrderedByDueDateFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(view.getContext());
 
-        List<Task> tasks = db.getTasks();
+        final List<Task> tasks = db.getTasks();
         Collections.sort(tasks, new SortByDueDate());
 
         adapter = new SelectTaskAdapter(tasks, db.getLabels());
@@ -49,6 +50,21 @@ public class TaskOrderedByDueDateFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new SelectTaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //Intent intent = new Intent();
+
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                db.deleteTask(tasks.get(position).getId());
+                tasks.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
 
         return view;
     }

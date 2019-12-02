@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,18 +20,56 @@ public class SelectTaskAdapter extends RecyclerView.Adapter<SelectTaskAdapter.Se
     private List<Task> tasks;
     private List<Label> labels;
 
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public static class SelectTaskViewHolder extends RecyclerView.ViewHolder{
         public TextView taskTitleTextView;
         public TextView taskDescriptionTextView;
         public TextView taskDueDateTextView;
         public TextView taskLabelTextView;
 
-        public SelectTaskViewHolder(@NonNull View itemView) {
+        public SelectTaskViewHolder(@NonNull View itemView, final OnItemClickListener onItemClickListener) {
             super(itemView);
             taskTitleTextView = itemView.findViewById(R.id.task_title_text_view);
             taskDescriptionTextView = itemView.findViewById(R.id.task_description_text_view);
             taskDueDateTextView = itemView.findViewById(R.id.task_due_date_text_view);
             taskLabelTextView = itemView.findViewById(R.id.task_label_text_view);
+
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            onItemClickListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            itemView.findViewById(R.id.completed_box).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            onItemClickListener.onDeleteClick(position);
+
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -45,7 +82,7 @@ public class SelectTaskAdapter extends RecyclerView.Adapter<SelectTaskAdapter.Se
     @Override
     public SelectTaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
-        SelectTaskViewHolder selectTaskViewHolder = new SelectTaskViewHolder(view);
+        SelectTaskViewHolder selectTaskViewHolder = new SelectTaskViewHolder(view, onItemClickListener);
         return selectTaskViewHolder;
     }
 

@@ -94,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Task> tasks = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM TASK;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM TASK WHERE ISACTIVE = 1;", null);
 
         if (cursor.moveToFirst()) {
             do {

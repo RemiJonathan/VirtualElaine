@@ -36,10 +36,25 @@ public class TaskOrderedByLabelFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(view.getContext());
 
-        List<Task> tasks = db.getTasks();
+        final List<Task> tasks = db.getTasks();
         Collections.sort(tasks, new SortByLabel());
 
         adapter = new SelectTaskAdapter(tasks, db.getLabels());
+
+        adapter.setOnItemClickListener(new SelectTaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //Intent intent = new Intent();
+
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                db.deleteTask(tasks.get(position).getId());
+                tasks.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

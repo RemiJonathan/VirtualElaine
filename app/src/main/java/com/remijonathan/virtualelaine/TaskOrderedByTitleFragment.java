@@ -1,9 +1,11 @@
 package com.remijonathan.virtualelaine;
 
 import android.os.Bundle;
+import android.text.method.MultiTapKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,10 +38,25 @@ public class TaskOrderedByTitleFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(view.getContext());
 
-        List<Task> tasks = db.getTasks();
+        final List<Task> tasks = db.getTasks();
         Collections.sort(tasks, new SortByTitle());
 
         adapter = new SelectTaskAdapter(tasks, db.getLabels());
+
+        adapter.setOnItemClickListener(new SelectTaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //Intent intent = new Intent();
+
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                db.deleteTask(tasks.get(position).getId());
+                tasks.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

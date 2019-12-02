@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="4dp" android:layout_marginBottom="4dp">
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
             android:id="@+id/task_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/completed_box"
             android:text="@string/example_task"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -24,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_title_text_view"
             android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/completed_box"
             android:text="@string/example_task_description"
             android:textSize="15sp" />
 
@@ -33,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_description_text_view"
             android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/completed_box"
             android:text="@string/example_due_date"
             android:textSize="15sp" />
 
@@ -53,6 +57,15 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+        <CheckBox
+            android:id="@+id/completed_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp" />
 
 
     </RelativeLayout>
