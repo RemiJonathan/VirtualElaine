@@ -18,6 +18,8 @@ import com.remijonathan.virtualelaine.model.Task;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TaskOrderedByDueDateFragment extends Fragment {
@@ -38,14 +40,24 @@ public class TaskOrderedByDueDateFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(view.getContext());
 
-        //List<Task> tasks = new ArrayList<>();
-        //tasks.add(new Task(0, "Task1", "1/01/1970 00:00", "1", "This is you first task", true));
+        List<Task> tasks = db.getTasks();
+        Collections.sort(tasks, new SortByDueDate());
 
-        adapter = new SelectTaskAdapter(db.getTasks(), db.getLabels());
+        adapter = new SelectTaskAdapter(tasks, db.getLabels());
+
+        adapter = new SelectTaskAdapter(tasks, db.getLabels());
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    class SortByDueDate implements Comparator<Task>
+    {
+        public int compare(Task a, Task b)
+        {
+            return (int) (a.getDueDate().getTimeInMillis() - b.getDueDate().getTimeInMillis());
+        }
     }
 }
