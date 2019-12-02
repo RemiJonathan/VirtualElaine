@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,8 +29,8 @@
             android:id="@+id/color_sample_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/label_description_text_view"
-            android:layout_toEndOf="@+id/label_description_text_view"
+            android:layout_alignBottom="@+id/label_title_text_view"
+            android:layout_toEndOf="@+id/label_title_text_view"
             android:background="@drawable/shape_rectangle"
             android:gravity="center"
             android:text="@string/sample"
@@ -39,4 +39,4 @@
             android:textSize="24sp" />
 
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
