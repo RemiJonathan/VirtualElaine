@@ -23,14 +23,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_4 = "DESCRIPTION";
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 3);
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_2 + " VARCHAR(70), " + COL_3 + " INTEGER, " + COL_4 + " TEXT DEFAULT NULL); ");
-        db.execSQL("CREATE TABLE TASK ( TASKID INTEGER PRIMARY KEY AUTOINCREMENT, TASKTITLE TEXT DEFAULT NULL, TASKLABEL TEXT DEFAULT NULL, TASKDESCRIPTION TEXT DEFAULT NULL, ISACTIVE BOOLEAN DEFAULT 1);");
+        db.execSQL("CREATE TABLE TASK ( TASKID INTEGER PRIMARY KEY AUTOINCREMENT, TASKTITLE TEXT DEFAULT NULL, TASKDUEDATE TEXT DEFAULT NULL, TASKLABEL INTEGER DEFAULT NULL, TASKDESCRIPTION TEXT DEFAULT NULL, ISACTIVE BOOLEAN DEFAULT 1);");
     }
 
     @Override
