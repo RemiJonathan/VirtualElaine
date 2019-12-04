@@ -44,7 +44,7 @@
             android:id="@+id/task_label_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_below="@+id/task_title_text_view"
             android:layout_toStartOf="@+id/detail_arrow_image_view"
             android:layout_toEndOf="@id/task_description_text_view"
             android:gravity="center"

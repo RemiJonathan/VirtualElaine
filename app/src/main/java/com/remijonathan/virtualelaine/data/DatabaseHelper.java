@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createLabel(String title, int color, @Nullable String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL(String.format("INSERT INTO %s  (%s, %s, %s) VALUES ('%s', %d, %s);", TABLE_NAME, COL_2, COL_3, COL_4, title, color, description));
+        db.execSQL(String.format("INSERT INTO %s  (%s, %s, %s) VALUES ('%s', %d, '%s');", TABLE_NAME, COL_2, COL_3, COL_4, title, color, description));
     }
 
     public List<Label> getLabels() {
@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void putTask(String taskTitle, @Nullable String taskDueDate, @Nullable String taskLabel, @Nullable String taskDescription) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL(String.format("INSERT INTO TASK (TASKTITLE, TASKDUEDATE, TASKLABEL, TASKDESCRIPTION) VALUES (%s, %s, %s, %s)", taskTitle, taskDueDate, taskLabel, taskDescription));
+        db.execSQL(String.format("INSERT INTO TASK (TASKTITLE, TASKDUEDATE, TASKLABEL, TASKDESCRIPTION) VALUES ('%s', '%s', '%s', %s)", taskTitle, taskDueDate, taskLabel, taskDescription));
     }
 
     public void updateTaskTitle(int id, String title) {
@@ -89,7 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE TASK SET TASKDESCRIPTION = '" + description + "' WHERE TASKID = " + id + ";");
     }
 
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Task> tasks = new ArrayList<>();
 
@@ -113,13 +113,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return tasks;
     }
 
-    public Task getTask(int id){
+    public Task getTask(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM TASK WHERE TASKID = ?", new String[]{String.valueOf(id)});
 
         if (cursor.moveToFirst()) {
-            Task task = new Task(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4), Boolean.parseBoolean(cursor.getString(5)));
+            Task task = new Task(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), Boolean.parseBoolean(cursor.getString(5)));
             return task;
         } else {
             return null;
@@ -130,5 +130,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.execSQL(String.format("UPDATE TASK SET ISACTIVE = 0 WHERE TASKID = %d", id));
+    }
+
+
+    //Run this method in MainActivity in order to fill the application with dummy Task
+    public void addTestDummyData() {
+        createLabel("Fun", -26266, "Fun activities");
+        createLabel("Travel", -10027111, "Travelling objectives");
+        createLabel("Health and Fitness", -6723841, "Keep in shape, keep happy!");
+        createLabel("Personal Development", -3342490, null);
+        createLabel("Cool", -10040065, null);
+        createLabel("Health and Fitness", -39220, null);
+        createLabel("Creative", 0, "This is a label with no color...");
+
+        putTask("Drive a Formula 1 Car", "1/1/2020 0:00", "1", null);
+        putTask("Watch Fire Dancers in Hawaii", "1/1/2020 0:00", "1", null);
+        putTask("Ski Whistler", "1/1/2020 0:00", "1", null);
+        putTask("Compete in a 3 Point Basketball Contest", "12/1/2020 0:00", "1", null);
+        putTask("Find a Cause That Will Be in my Heart Forever", "13/1/2020 0:00", "2", null);
+        putTask("Be in Time Square on New Years Eve", "18/1/2020 0:00", "2", null);
+        putTask("Give Free Hugs in a Public Place", "1/1/2020 0:00", "3", null);
+        putTask("Watch 1000 Movies", "15/1/2020 0:00", "4", null);
+        putTask("Achieve Six-Pack Abs", "1/1/2020 0:00", "5", null);
+        putTask("Dance all Around the World", "18/1/2020 0:00", "5", null);
+        putTask("Become a Bone Marrow Potential Donor", "19/1/2020 0:00", "6", null);
+        putTask("Build a Computer", "23/1/2020 0:00", "1", null);
+        putTask("Complete Android Project", "15/1/2020 0:00", "0", null);
     }
 }
